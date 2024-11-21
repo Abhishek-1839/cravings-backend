@@ -83,8 +83,8 @@ const loginUser = async (req, res) => {
       }
       if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
 
-      // Generate JWT token (for session management)
-      // This is where you would issue the JWT token
+      // Generate JWT token (for session management) This is where you would issue the JWT token
+      
 
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXPIRES_IN
@@ -103,7 +103,6 @@ const loginUser = async (req, res) => {
       // For simplicity, returning user info
       res.json({ token: token, user: { _id: user._id, email: user.email }, isLoggedIn: true });
 
-    //   res.json({ token:token, user: user._id, isLoggedIn: true });
   } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Internal server error" });
