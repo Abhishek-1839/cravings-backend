@@ -7,6 +7,7 @@ const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/user");
 const restaurantlistRoutes = require("./routes/restaurantlist");
 const popularfoodRoutes = require("./routes/popularfood");
+const menuRoutes = require("./routes/menuRoutes");
 dotenv.config();
 
 const app = express();
@@ -46,6 +47,7 @@ app.use(authRoutes);
 app.use(userRoutes);
 app.use(restaurantlistRoutes);
 app.use(popularfoodRoutes);
+app.use(menuRoutes);
 
 app.use((req, res, next) => {console.log('Request Headers:', req.headers); console.log('Request Body:', req.body);
     console.log('Request Cookies:', req.cookies);
