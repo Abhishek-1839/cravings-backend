@@ -8,6 +8,7 @@ const userRoutes = require("./routes/user");
 const restaurantlistRoutes = require("./routes/restaurantlist");
 const popularfoodRoutes = require("./routes/popularfood");
 const menuRoutes = require("./routes/menuRoutes");
+const cartRoutes = require("./routes/cartRoutes")
 const offerRoutes = require("./routes/offerRoutes");
 const dealRoutes = require("./routes/dealRoutes");
 dotenv.config();
@@ -41,6 +42,7 @@ app.use(popularfoodRoutes);
 app.use(menuRoutes);
 app.use(dealRoutes);
 app.use(offerRoutes);
+app.use(cartRoutes);
 
 app.use((req, res, next) => {console.log('Request Headers:', req.headers); console.log('Request Body:', req.body);
     console.log('Request Cookies:', req.cookies);
