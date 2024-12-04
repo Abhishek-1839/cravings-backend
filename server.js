@@ -21,8 +21,8 @@ app.use(bodyparser.json());
 
 
 const corsOptions = {
-  origin: "https://cravingsyum.netlify.app",
-  // origin : "http://localhost:5173",
+  // origin: "https://cravingsyum.netlify.app",
+  origin : "http://localhost:5173",
   methods: ["GET", "PUT", "DELETE", "POST", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
