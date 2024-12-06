@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 // Add item to the cart
 exports.addItem = async (req, res) => {
   const { productId, sharedLinkId } = req.body;
-  const userId = req.user?.id; // Get the user ID from `authMiddleware`
+  const userId = req.user.id; // Get the user ID from `authMiddleware`
   try {
     console.log("Adding Product ID:", productId);
     let cart;
@@ -13,8 +13,14 @@ exports.addItem = async (req, res) => {
       cart = await Cart.findOne({ sharedLinkId });
     } else if (userId) {
       cart = await Cart.findOne({ userId });
+      if (!cart) {
+        cart = new Cart({ userId,
+          sharedLinkId: uuidv4(),
+         });
+        await cart.save(); // Save the new cart to the database
+      }
     } else {
-      cart = new Cart();
+      return res.status(400).json({ message: "User ID or shared link required" });
     }
 
     if (!cart) {
@@ -159,12 +165,9 @@ exports.shareCart = async (req, res) => {
     // cart.isShared = true;
     await cart.save();
   }
+  const sharedLinkId = cart.sharedLinkId;
   const sharedLink = `${process.env.FRONTEND_URL}/shared-cart/${cart.sharedLinkId}`;
-  res.status(200).json({
-    sharedLink: `${req.protocol}://${req.get("host")}/cart/${
-      cart.sharedLinkId
-    }`,
-  });
+  res.status(200).json({ sharedLinkId });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Error sharing cart" });
